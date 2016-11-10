@@ -42,7 +42,7 @@ router.get('/forge/oauth/token', function (req, res) {
   })
 });
 
-var ossBucketKey = process.env.FORGE_BUCKET || 'navigation2d3d';
+var ossBucketKey = process.env.FORGE_BUCKET || 'navisample3d2d';
 
 router.get('/forge/models', function (req, res) {
   var t = new token();
@@ -57,12 +57,12 @@ router.get('/forge/models', function (req, res) {
       data.items.forEach(function (bucket) {
         if (bucket.bucketKey.indexOf(ossBucketKey) == 0) {
           objects.getObjects(bucket.bucketKey).then(function (data) {
-            var models = [
-              {id: data.items[0].objectKey, label: data.items[0].objectKey, urn: data.items[0].objectId.toBase64()},
-              //{id: data.items[1], label: data.items[1], urn: data.items[1].objectId.toBase64()},
-            ];
+            var models = [];
+            data.items.forEach(function (object) {
+              models.push({id: object.objectKey, label: object.objectKey, urn: object.objectId.toBase64()});
+            });
             res.status(200).json(models);
-            return;
+
           });
         }
       });
@@ -73,8 +73,10 @@ router.get('/forge/models', function (req, res) {
 router.get('/forge/initialsetup', function (req, res) {
   var path = require('path');
 
-  uploadToOSS('revithouse.rvt', path.join(__dirname, '..', '/samples/rac_basic_sample_project.rvt'), req, res, function(){
-    uploadToOSS('racadvanced.rvt', path.join(__dirname, '..', '/samples/rac_advanced_sample_project.rvt'), req, res);
+  uploadToOSS('revithouse.rvt', path.join(__dirname, '..', '/samples/rac_basic_sample_project.rvt'), req, res, function () {
+    uploadToOSS('racadvanced.rvt', path.join(__dirname, '..', '/samples/rac_advanced_sample_project.rvt'), req, res, function () {
+      res.end("setup completed!");
+    });
   });
 
 });
@@ -97,7 +99,7 @@ function uploadToOSS(fileName, filePath, req, res, callback) {
 
     // promise will treat 409 as error, but let's handle it
     buckets.createBucket(postBuckets, null, function (err, data, response) {
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 && response.statusCode != 409 /*bucket already exists*/) {
         console.log('Error creating bucket ' + response.statusCode);
         return;
       }
