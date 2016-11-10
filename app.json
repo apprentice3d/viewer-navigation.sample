@@ -16,6 +16,11 @@
     },
     "FORGE_CLIENT_SECRET": {
       "description": "Forge Client Secret"
+    },
+    "FORGE_BUCKET":{
+      "description" : "Default bucket name, no need to change it.",
+      "value": "navigation2d3d"
+
     }
   },
   "website": "https://developer.autodesk.com/",
