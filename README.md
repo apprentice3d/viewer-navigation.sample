@@ -11,7 +11,11 @@
 
 # Description
 
-This sample demonstrate how to navigate on a model with 3D and 2D in sync. The main page looks like:
+This sample demonstrate how to navigate on a model with 3D and 2D in sync.
+ 
+You can try it live at [viewernavigation.herokuapp.com](https://viewernavigation.herokuapp.com/)
+
+The main page looks like:
 
 ![](www/images/indexpage.png)
 

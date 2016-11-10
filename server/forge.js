@@ -42,7 +42,7 @@ router.get('/forge/oauth/token', function (req, res) {
   })
 });
 
-var ossBucketKey = process.env.FORGE_BUCKET || 'navisample3d2d';
+var ossBucketKey = process.env.FORGE_BUCKET || 'navigationsample3d2d';
 
 router.get('/forge/models', function (req, res) {
   var t = new token();
@@ -59,10 +59,9 @@ router.get('/forge/models', function (req, res) {
           objects.getObjects(bucket.bucketKey).then(function (data) {
             var models = [];
             data.items.forEach(function (object) {
-              models.push({id: object.objectKey, label: object.objectKey, urn: object.objectId.toBase64()});
+              models.push({id: object.objectKey.split('.')[0], label: object.objectKey, urn: object.objectId.toBase64()});
             });
             res.status(200).json(models);
-
           });
         }
       });
