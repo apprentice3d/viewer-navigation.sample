@@ -45,7 +45,7 @@ Windows (use **Node.js command line** from Start menu)
 
 Open the browser: [http://localhost:3000](http://localhost:3000).
 
-To prepare the models, run the [Initial Setup](http://localhost:3000/forge/initialsetup) endpoint.
+To prepare the models, run the [Initial Setup](http://localhost:3000/forge/initialsetup) endpoint. This still under development, so there is not feedback... just access the endpoint to start the setup process, wait a few minutes to translate the models.
 
 **Important:** do not use **npm start** locally, this is intended for PRODUCTION only with HTTPS (SSL) secure cookies.
 

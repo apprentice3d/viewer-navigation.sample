@@ -73,11 +73,13 @@ router.get('/forge/models', function (req, res) {
 router.get('/forge/initialsetup', function (req, res) {
   var path = require('path');
 
-  uploadToOSS('revithouse.rvt', path.join(__dirname, '..', '/samples/rac_basic_sample_project.rvt'), req, res);
-  uploadToOSS('racadvanced.rvt', path.join(__dirname, '..', '/samples/rac_advanced_sample_project.rvt'), req, res);
+  uploadToOSS('revithouse.rvt', path.join(__dirname, '..', '/samples/rac_basic_sample_project.rvt'), req, res, function(){
+    uploadToOSS('racadvanced.rvt', path.join(__dirname, '..', '/samples/rac_advanced_sample_project.rvt'), req, res);
+  });
+
 });
 
-function uploadToOSS(fileName, filePath, req, res) {
+function uploadToOSS(fileName, filePath, req, res, callback) {
   var t = new token();
   t.getTokenInternal(function (tokenInternal) {
 
@@ -125,6 +127,9 @@ function uploadToOSS(fileName, filePath, req, res) {
           }).catch(function (e) {
             console.log(e);
           });
+
+          if (callback)
+            callback();
         });
       });
     });
