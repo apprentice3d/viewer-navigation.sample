@@ -313,36 +313,3 @@ function saveBlobToLocalStorage(blob, name) {
 
     reader.readAsDataURL(blob);
 }
-
-/*
-function uploadToServer(blob, name) {
-
-    var request = new XMLHttpRequest();
-    var params = JSON.stringify({imageName:name});
-    request.open("POST", "/api/prepare", true);
-    request.setRequestHeader("Content-type", "application/json; charset=utf-8");
-
-    request.onreadystatechange = function(e) {
-        if(request.readyState == 4 && request.status == 200) {
-            console.log("success ", e.target.response);
-            var reader = new FileReader();
-            reader.onload = function (evt) {
-
-                var fileUploadData = evt.target.result;
-                var request = new XMLHttpRequest();
-                request.open(
-                            "POST",
-                            "/api/upload",
-                            true
-                        );
-                request.send(fileUploadData);
-            }
-            reader.readAsDataURL(blob);
-        } else {
-            console.log("fail ", e.target.response);
-        }
-    }
-    
-    request.send(params);
-}
-*/
