@@ -42,7 +42,7 @@ router.get('/forge/oauth/token', function (req, res) {
   })
 });
 
-var ossBucketKey = process.env.FORGE_BUCKET || 'navigationsample3d2d';
+var ossBucketKey = process.env.FORGE_BUCKET || 'someveryuniquename2d3d';//'navigationsample3d2d';
 
 router.get('/forge/models', function (req, res) {
   var t = new token();
